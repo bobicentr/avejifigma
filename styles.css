@@ -9,14 +9,376 @@
     padding: 0;
 }
 
+.mobile {
+    display: none;
+}
+
+section {
+    padding-top: 3rem;
+}
+
 body {
     padding: 1rem;
 }
 
-@media (min-width: 738px) {
+header {
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+}
+
+.logo {
+
+}
+
+.nav-menu {
+    grid-column-start: 13;
+}
+
+.nav-menu ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: black;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-item a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background-color: black;
+    transition: width 0.3s ease;
+
+}
+
+.nav-item a:hover::after {
+    width:100%;
+}
+
+
+
+.number {
+    text-decoration: none;
+    color: black;
+    grid-column-start: 16;
+    grid-column-end: 19;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.intro-section {
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+    row-gap: 2.5rem;
+    h1 {
+        grid-column: 10 span;
+        font-size: 4rem;
+    }
+    p {
+        grid-column: 6 span;
+        grid-row: 2/3;
+        margin-bottom: 0;
+    }
+    a {
+        grid-column: 16 / -1;
+        display: flex;
+        align-self: flex-end;
+        text-decoration: none;
+        color: black;
+        position: relative;
+        transition: opacity 0.3s ease;
+    }
+    a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 10.5rem;
+        height: 1px;
+        background-color: black;
+        transition: width 0.3s ease;
+    }
+    a:hover {
+        opacity: 0.2;
+        
+    }    
+    a:hover::after {
+        width: 0;
+    }
+    .img1 {
+        display: block;
+        grid-column: 4 span;
+        grid-row: 3; 
+    }
+    .img2 {
+        height: auto;
+        grid-row: 2 span;
+        grid-column-start: 10;
+        grid-column-end: 19;
+    }
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
     
 }
 
-.header {
-
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(18,1fr);
+    h2 {
+        font-size: 2rem;
+        grid-column: 1 / 8;
+    }
 }
+
+.about-text-wrap {
+    display: flex;
+    flex-direction: column;
+    grid-column-start: 10 ;
+    grid-column-end: 16;
+    dt {
+        font-weight: bold;
+        font-size: 2rem;
+        padding-top: 2rem;
+    }
+}
+
+
+.about-text {
+    padding-top: 1rem;
+}
+
+.algorithm {
+    display: grid;
+    grid-template-columns: repeat(18,1fr);
+    h2 {
+        font-size: 2rem;
+        grid-column: 1 / 8;
+    }
+}
+
+.algorithm-wrap {
+    grid-column: 10 / -1;
+}
+
+.algorithm-table {
+    width: 100%;
+    margin-top: 2rem;
+    border-collapse: collapse;
+    table-layout: fixed;     
+}
+
+.algorithm-table th, 
+.algorithm-table td {
+    border-top: 1px solid #333;
+    padding: 2rem 0; 
+    text-align: left;
+    vertical-align: top;
+}
+
+.algorithm-table th {
+    width: 40%;
+    padding-right: 2rem; 
+    font-size: 1.5rem; 
+    font-weight: 400; 
+    font-family: serif;
+}
+
+.algorithm-table td {
+    width: 60%;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #555; 
+}
+
+.projects {
+    display: flex;
+    flex-direction: column;
+}
+
+.projects h2 {
+    font-size: 2rem;
+}
+
+.projects-list {
+    padding-top: 2rem;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.projects-item {
+    width: 26rem;
+    height: 500px;
+    overflow: hidden; /* ВАЖНО: обрезает плашку, когда она уезжает вниз */
+    position: relative; /* Якорь для позиционирования плашки */
+    cursor: pointer;
+}
+
+.projects-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease; /* Плавный зум картинки */
+}
+
+/* Ховер эффект для картинки */
+.projects-item:hover img {
+    transform: scale(1.1);
+}
+
+/* --- ВЫЕЗЖАЮЩАЯ ПЛАШКА --- */
+.project-desc {
+    /* Позиционирование */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    
+    /* Визуал */
+    background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный */
+    color: white;
+    padding: 1.5rem; /* Отступы внутри плашки */
+    
+    /* Флекс для текста и стрелочки */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    /* АНИМАЦИЯ СКРЫТИЯ */
+    transform: translateY(100%); /* Сдвигаем вниз на 100% своей высоты */
+    transition: transform 0.4s ease-in-out; /* Плавный выезд */
+}
+
+/* --- АНИМАЦИЯ ПОЯВЛЕНИЯ --- */
+/* Когда наводим на РОДИТЕЛЯ (.projects-item), меняем стиль РЕБЕНКА (.project-desc) */
+.projects-item:hover .project-desc {
+    transform: translateY(0); /* Возвращаем на место */
+}
+
+.reviews {
+    display: flex;
+    flex-direction: column;
+}
+
+.reviews h2 {
+    font-size: 2rem;
+}
+
+.reviews-wrap {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.review {
+    width: 26rem;
+    height: 18rem;
+    border: 1px solid black;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.review-author {
+    font-weight: bold;
+}
+
+.feedback {
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+}
+
+.feedback img {
+    grid-column: 1 / 9;
+}
+
+.feedback-form {
+    grid-column: 10 / -1;
+    h2 {
+        font-size: 3rem;
+    }
+    p {
+        padding-top: 2rem;
+        font-size: 1.2rem;
+    }
+}
+
+.feedback-form form {
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.feedback-form form input {
+    border: none;
+    height: 3rem;
+    border-bottom: #333 1px solid;
+    width: 75%;
+}
+
+.feedback-form form button {
+    width: 11rem;
+    height: 3.5rem;
+    border-radius: 0;
+    color: white;
+    background-color: #333;
+    transition: all 0.3s ease;
+}
+
+.feedback-form form button:hover {
+    color: black;
+    background-color: white;
+}
+
+footer {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+footer a {
+    text-decoration: none;
+    color: black;
+    position: relative;
+    
+}
+
+footer a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background-color: black;
+    transition: width 0.3s ease;
+}
+footer a:hover::after {
+    width: 100%;
+}
+
+@media (max-width: )
